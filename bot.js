@@ -1,7 +1,11 @@
 const Discord = require('discord.js');
-const Baron = new Discord.Client();
-const prefix = '$';
-
+const client = new Discord.Client();
+const prefix = "!"
+ 
+ 
+ client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
 
 client.on('message', async msg => { //Toxic Codes
     if (msg.content.toLowerCase() === "prefix" + "disco") {//Toxic Codes
