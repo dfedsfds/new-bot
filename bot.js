@@ -4,7 +4,7 @@ const prefix = '$';
 
 
 lient.on('guildMemberAdd', (member) => {
-member.addRole(member.guild.roles.find('name', 'not active'));
+member.addRole(member.guild.roles.find('name', ' new '));
 });
  
  
