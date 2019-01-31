@@ -27,7 +27,7 @@ const prefix = "$";
 client.on('message', message => {
     if(message.content == '$member') {
     const embed = new Discord.RichEmbed()
-    .setDescription(`**Members infoðŸ”‹
+    .setDescription(`**Members info”‹
 :green_heart: اخضر:   ${message.guild.members.filter(m=>m.presence.status == 'online').size}
 :heart:     احمر  ${message.guild.members.filter(m=>m.presence.status == 'dnd').size}
 :yellow_heart: اصفر:      ${message.guild.members.filter(m=>m.presence.status == 'idle').size}   
@@ -117,20 +117,8 @@ client.on('ready', function(){
 });
 ///////////////////////كود تثبيت البوت بروم صوتي////////////////
 
-client.on('message', msg => {
 
-    if (msg.content == '$join') {
-        if (msg.member.voiceChannel) {
 
-     if (msg.member.voiceChannel.joinable) {
-         msg.member.voiceChannel.join().then(msg.react('white_check_mark'));
-     }
-    }
-}
-})
-client.on('ready', () => { //code bot not leave room voice //Bot Is Online
-    client.channels.get("535564395028283412").join(); //by : iBeAnthonyD
-    });
 ///////////////////////اكواد ستريمنق////////////////
 const developers = ["518872353615380497"]//Toxic Codes
 client.on('message', message => {//Toxic Codes
