@@ -4,7 +4,7 @@ const prefix = "!";
  
  
  client.on('message', msg => {//msg
-    if (msg.content === `${prefix}colors`) {
+    if (msg.content === `الوان`) {
       msg.channel.send({file : "https://cdn.discordapp.com/attachments/501774006966419458/501774646467887105/colors.png"})
     }
   });;
@@ -2393,7 +2393,7 @@ if (message.content.startsWith(`${prefix}deletecolors`)) {
  
  client.on('message', message => {
             let args = message.content.split(' ').slice(1);
-            if(message.content.split(' ')[0] == `${prefix}لون`){
+            if(message.content.split(' ')[0] == `لون`){
             const embedd = new Discord.RichEmbed()
             .setFooter('Requested by '+message.author.username, message.author.avatarURL)
             .setDescription(`**لا يوجد لون بهذا الأسم ** ❌ `)
