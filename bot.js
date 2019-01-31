@@ -2409,8 +2409,6 @@ if (message.content.startsWith(`${prefix}deletecolors`)) {
 
 
 
-
-=================================
  
  
  
@@ -2454,7 +2452,7 @@ if (message.content.startsWith(`${prefix}deletecolors`)) {
             }
             });
  
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 
 
 client.login(process.env.BOT_TOKEN);
