@@ -242,16 +242,9 @@ client.on('message', message => {
 
 ///////////////////////رتبه تلقائيه//////////////////////////
 
-Yousef.on ("guildMemberAdd", member => {
-  
-   var role = member.guild.roles.find ("name", "الرتبه");
-   member.addRole (role);
-  
-})
-
-Yousef.on ("guildMemberRemove", member => {
-   
-})
+client.on('guildMemberAdd', member=> {
+    member.addRole(member.guild.roles.find("name","Member"));
+    });
 
 
 
