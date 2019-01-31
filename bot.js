@@ -250,7 +250,7 @@ Yousef.on ("guildMemberRemove", member => {
 
 client.on('message', function(msg)
 
-          if(msg.content.startsWith (prefix  + 'server')) {
+          (msg.content.startsWith (prefix  + 'server')) {
       let embed = new Discord.RichEmbed()
       .setColor('RANDOM')
       .setThumbnail(msg.guild.iconURL)
