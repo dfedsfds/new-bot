@@ -258,27 +258,6 @@ Yousef.on ("guildMemberRemove", member => {
 /////////////////////////كود معلومات السيرفر///////////////////////
 
 
-client.on('message', function(message) {//Toxic Codes
-    if (!message.member.hasPermissions(['ADMINISTRATOR'])){//Toxic Codes
-            let command = message.content.split(" ")[0];
-        if(message.content.includes('discord.gg')){//Toxic Codes
-        message.reply (' ')//Toxic Codes
-           if(!message.channel.guild) return message.reply('** This command only for servers**');//Toxic Codes
-     message.member.addRole(message.guild.roles.find('name', 'Muted')); //Toxic Codes
-    const embed500 = new Discord.RichEmbed()//Toxic Codes
-      .setTitle("❌ | تمت معاقبتك")//Toxic Codes
-            .addField(`** لقد قمت بمخالفة قوانين السيرفر من خلال نشر سيرفرات اخرى  **` , `**ان كأن هاذه الميوت عن طريق الخطأ تواصل مع احد اعضاء الادارة**`)
-      .addField(`Magic`,`Server`)
-            .setColor("c91616")
-            .setThumbnail(`${message.author.avatarURL}`)//Toxic Codes
-            .setAuthor(message.author.username, message.author.avatarURL) //Toxic Codes
-        .setFooter(`${message.guild.name} Server`)//Toxic Codes
-     message.channel.send(embed500) //Toxic Codes
-    
-        
-    }//Toxic Codes
-    }//Toxic Codes
-}) //Toxic Codes
 
 ////////////////////////////كود الالوان//////////////////////////////////
  
