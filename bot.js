@@ -101,7 +101,7 @@ client.on('messageReactionRemove', (reaction, user) => {
 ////////////////////////////////ستريمق يتغير /////////////////
 client.on('ready', function(){
     var ms = 90000 ; //تقدر تعدل على الوقت 
-    var sg = [`${prefix}help`,`${message.guild.memberCount}Member.`]; //تقدر تعدل على هاي 
+    var sg = [`${prefix}help`,`${message.guild.member}Member.`]; //تقدر تعدل على هاي 
     var i = -1;
     var l = 0;
     setInterval(function (){
