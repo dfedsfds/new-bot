@@ -2,6 +2,263 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const prefix = "!";
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////رتبه ب ريكاشن/////////////////////
+
+
+var stopReacord = true;
+var reactionRoles = [];
+var definedReactionRole = null;
+ 
+client.on("message", async message => {
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
+    if(message.author.bot) return;
+    if(message.content.indexOf(prefix) !== 0) return;
+    if (command == "autoc") {
+      if(!message.channel.guild) return message.reply(`**هذا الأمر __للسيرفرات فقط__**`);
+      if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("انت لا تسطيتع استخدام هذا الامر");
+      if(!args[0] || args[1]) return message.channel.send(`${prefix}autoc <role-name>`);
+      var role = message.guild.roles.find( role => { return role.name == args[0] });
+      if(!role) return message.channel.send(`**لم يتم العثور على رتبة بهذا الاسم , تأكد من وجود هذه الرتبة`);
+      if(definedReactionRole != null  || !stopReacord) return message.channel.send("هذا الامر يتم استخدامة الان انتظر...");
+      message.channel.send(`الان اضف رياكشن للرسايل يلي بدك تعطي هذه الرتبة ${role.name}`);
+      definedReactionRole = role;
+      stopReacord = false;
+    }    
+})
+client.on('raw', raw => {
+  if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(raw.t)) return;
+  var channel = client.channels.get(raw.d.channel_id);
+  if (channel.messages.has(raw.d.message_id)) return;
+  channel.fetchMessage(raw.d.message_id).then(message => {
+    var reaction = message.reactions.get( (raw.d.emoji.id ? `${raw.d.emoji.name}:${raw.d.emoji.id}` : raw.d.emoji.name) );
+    if (raw.t === 'MESSAGE_REACTION_ADD') return client.emit('messageReactionAdd', reaction, client.users.get(raw.d.user_id));
+    if (raw.t === 'MESSAGE_REACTION_REMOVE') return client.emit('messageReactionRemove', reaction, client.users.get(raw.d.user_id));
+  });
+});
+client.on('messageReactionAdd', (reaction, user) => {
+    if(user.id == client.user.id) return;
+    if(!stopReacord) {
+      var done = false;
+      reactionRoles[reaction.message.id] = { role: definedReactionRole, message_id: reaction.message.id, emoji: reaction.emoji};
+      stopReacord =  true;
+      definedReactionRole = null;
+      reaction.message.react(reaction.emoji.name)
+      .catch(err => {done = true; reaction.message.channel.send(`اسف ولاكن لا اسطتيع استخدام هذا الايموجي  ولاكن تم,اي احد يضغط على الايموجي سيأخذ الرتبة`)})
+      if(done) reaction.remove(user);
+    } else {
+      var request = reactionRoles[reaction.message.id];
+      if(!request) return;
+      if(request.emoji.name != reaction.emoji.name) return reaction.remove(user);
+      reaction.message.guild.members.get(user.id).addRole(request.role);
+    }
+})
+client.on('messageReactionRemove', (reaction, user) => {
+  if(user.id == client.user.id) return;
+  if(!stopReacord) return;
+  let request = reactionRoles[reaction.message.id];
+  if(!request) return;
+  reaction.message.guild.members.get(user.id).removeRole(request.role);
+});
+////////////////////////////////ستريمق يتغير /////////////////
+client.on('ready', function(){
+    var ms = 30000 ; //تقدر تعدل على الوقت 
+    var sg = [`${prefix}help`,`${client.guilds.size} Servers.`]; //تقدر تعدل على هاي 
+    var i = -1;
+    var l = 0;
+    setInterval(function (){
+        if( i == -1 ){
+            l = 1;
+        }
+        if( i == (sg.length)-1 ){
+            l = -1;
+        }
+        i = i+l;
+        client.user.setGame(sg[i],`http://www.twitch.tv/${client.user.username}`);
+    }, ms);
+});
+///////////////////////كود تثبيت البوت بروم صوتي////////////////
+
+client.on('message', msg => {
+
+    if (msg.content == '$join') {
+        if (msg.member.voiceChannel) {
+
+     if (msg.member.voiceChannel.joinable) {
+         msg.member.voiceChannel.join().then(msg.react('white_check_mark'));
+     }
+    }
+}
+})
+client.on('ready', () => { //code bot not leave room voice //Bot Is Online
+    client.channels.get("535564395028283412").join(); //by : iBeAnthonyD
+    });
+///////////////////////اكواد ستريمنق////////////////
+const developers = ["518872353615380497"]//Toxic Codes
+client.on('message', message => {//Toxic Codes
+    var argresult = message.content.split(` `).slice(1).join(' ');//Toxic Codes
+      if (!developers.includes(message.author.id)) return;
+     
+  if (message.content.startsWith(adminprefix + 'setg')) {
+    client.user.setGame(argresult);
+      message.channel.send(`**✅   ${argresult}**`)
+  } else
+     if (message.content === (adminprefix + "leave")) {//Toxic Codes
+    message.guild.leave();   //Toxic Codes
+  } else  
+  if (message.content.startsWith(adminprefix + 'setw')) {
+  client.user.setActivity(argresult, {type:'WATCHING'});//Toxic Codes
+      message.channel.send(`**✅   ${argresult}**`)//Toxic Codes
+  } else
+  if (message.content.startsWith(adminprefix + 'setl')) {
+  client.user.setActivity(argresult , {type:'LISTENING'});
+      message.channel.send(`**✅   ${argresult}**`)//Toxic Codes
+  } else
+  if (message.content.startsWith(adminprefix + 'sets')) {
+    client.user.setGame(argresult, "https://www.twitch.tv/zero");
+      message.channel.send(`**✅**`)//Toxic Codes
+  }
+  if (message.content.startsWith(adminprefix + 'setname')) {
+  client.user.setUsername(argresult).then
+      message.channel.send(`Changing The Name To ..**${argresult}** `)
+} else
+  if (message.content.startsWith(adminprefix + 'setprefix')) {//Toxic Codes
+  client.user.setPrefix(argresult).then
+      message.channel.send(`Changing Prefix ..**${argresult}** `)//Toxic Codes
+} else
+if (message.content.startsWith(adminprefix + 'setavatar')) {//Toxic Codes
+  client.user.setAvatar(argresult);
+    message.channel.send(`Changing The Avatar To :**${argresult}** `);//Toxic Codes
+}
+});//Toxic Codes
+/////////////////////////اذا حد نشر مميوت///////////////////
+
+
+client.on('message', message => {/////toxic codes and zezo
+    if(message.content.toLowerCase().startsWith(`discord.gg`)){
+        message.member.addRole(message.guild.roles.find('name', 'Muted'));
+        var embed = new Discord.RichEmbed()
+        .setDescription(`تمت معاقبتك لنشرك سيرفر اخر هنا`)
+            message.delete();
+        message.channel.send(`<@${message.author.id}`);
+        message.channel.send({embed});
+    }/////toxic codes and zezo
+});/////toxic codes and zezo
+
+
+
+/////////////////////////////بردكسات////////////////////////////
+
+client.on('message', message => {
+	    var prefix = "*";
+              if(!message.channel.guild) return;
+    if(message.content.startsWith(prefix + 'bc')) {
+    if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+  if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
+    let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
+    let copy = "by Fras#9999";
+    let request = `Requested By ${message.author.username}`;
+    if (!args) return message.reply('**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**');message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟ \nمحتوى البرودكاست:** \` ${args}\``).then(msg => {
+    msg.react('✅')
+    .then(() => msg.react('❌'))
+    .then(() =>msg.react('✅'))
+    
+    let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+    let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+    
+    let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
+    let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
+ reaction1.on("collect", r => {
+    message.channel.send(`**☑ | Done ... تم الانتهاء وارسال البرودكاست بنجاح __${message.guild.members.size}__ Members**`).then(m => m.delete(5000));
+    message.guild.members.forEach(m => {
+  
+  var bc = new
+       Discord.RichEmbed()
+       .setColor('RANDOM')
+       .setTitle('Broadcast')
+       .addField('سيرفر', message.guild.name)
+       .addField('المرسل', message.author.username)
+       .addField('الرسالة', args)
+       .setThumbnail(message.author.avatarURL)
+       .setFooter(copy, client.user.avatarURL);
+    m.send({ embed: bc })
+    msg.delete();
+    })
+    })
+    reaction2.on("collect", r => {
+    message.channel.send(`**تم الغاء ارسال البرودكاست.**`).then(m => m.delete(5000));
+    msg.delete();
+    })
+    })
+    }
+    });
+
+///////////////////////رتبه تلقائيه//////////////////////////
+
+Yousef.on ("guildMemberAdd", member => {
+  
+   var role = member.guild.roles.find ("name", "الرتبه");
+   member.addRole (role);
+  
+})
+
+Yousef.on ("guildMemberRemove", member => {
+   
+})
+
+
+
+/////////////////////////كود معلومات السيرفر///////////////////////
+
+
+client.on('message', function(msg)
+    const prefix = '*'
+    if(msg.content.startsWith (prefix  + 'server')) {
+      let embed = new Discord.RichEmbed()
+      .setColor('RANDOM')
+      .setThumbnail(msg.guild.iconURL)
+      .setTitle(`Showing Details Of  **${msg.guild.name}*`)
+      .addField('🌐** نوع السيرفر**',`[** __${msg.guild.region}__ **]`,true)
+      .addField('🏅** __الرتب__**',`[** __${msg.guild.roles.size}__ **]`,true)
+      .addField('🔴**__ عدد الاعضاء__**',`[** __${msg.guild.memberCount}__ **]`,true)
+      .addField('🔵**__ عدد الاعضاء الاونلاين__**',`[** __${msg.guild.members.filter(m=>m.presence.status == 'online').size}__ **]`,true)
+      .addField('📝**__ الرومات الكتابية__**',`[** __${msg.guild.channels.filter(m => m.type === 'text').size}__** ]`,true)
+      .addField('🎤**__ رومات الصوت__**',`[** __${msg.guild.channels.filter(m => m.type === 'voice').size}__ **]`,true)
+      .addField('👑**__ الأونـر__**',`**${msg.guild.owner}**`,true)
+      .addField('🆔**__ ايدي السيرفر__**',`**${msg.guild.id}**`,true)
+      .addField('📅**__ تم عمل السيرفر في__**',msg.guild.createdAt.toLocaleString())
+      msg.channel.send({embed:embed});
+    }
+  });
+
+
+////////////////////////////كود الالوان//////////////////////////////////
  
  client.on('message', msg => {//msg
     if (msg.content === `الوان`) {
@@ -2429,6 +2686,15 @@ if (message.content.startsWith(`${prefix}deletecolors`)) {
             }
             });
  
+
+
+
+
+
+
+
+
+
 
 
 
