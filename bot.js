@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const prefix = "!";
+const prefix = "$";
  
 
 
@@ -24,7 +24,19 @@ const prefix = "!";
 
 
 
+client.on('message', message => {
+    if(message.content == '$member') {
+    const embed = new Discord.RichEmbed()
+    .setDescription(`**Members infoðŸ”‹
+:green_heart: اخضر:   ${message.guild.members.filter(m=>m.presence.status == 'online').size}
+:heart:     احمر  ${message.guild.members.filter(m=>m.presence.status == 'dnd').size}
+:yellow_heart: اصفر:      ${message.guild.members.filter(m=>m.presence.status == 'idle').size}   
+:black_heart: اوفلاين:   ${message.guild.members.filter(m=>m.presence.status == 'offline').size} 
+:blue_heart:   الكل:  ${message.guild.memberCount}**`)         
+         message.channel.send({embed});
 
+    }
+  }); // Toxic Code
 
 
 
@@ -176,7 +188,6 @@ client.on('message', message => {/////toxic codes and zezo
 /////////////////////////////بردكسات////////////////////////////
 
 client.on('message', message => {
-	    var prefix = "*";
               if(!message.channel.guild) return;
     if(message.content.startsWith(prefix + 'bc')) {
     if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
