@@ -172,17 +172,27 @@ if (message.content.startsWith(adminprefix + 'setavatar')) {//Toxic Codes
 /////////////////////////اذا حد نشر مميوت///////////////////
 
 
-client.on('message', message => {/////toxic codes and zezo
-    if(message.content.toLowerCase().startsWith(`discord.gg`)){
-        message.member.addRole(message.guild.roles.find('name', 'Muted'));
-        var embed = new Discord.RichEmbed()
-        .setDescription(`تمت معاقبتك لنشرك سيرفر اخر هنا`)
-            message.delete();
-        message.channel.send(`<@${message.author.id}`);
-        message.channel.send({embed});
-    }/////toxic codes and zezo
-});/////toxic codes and zezo
-
+client.on('message', function(message) {//Toxic Codes
+    if (!message.member.hasPermissions(['ADMINISTRATOR'])){//Toxic Codes
+            let command = message.content.split(" ")[0];
+        if(message.content.includes('discord.gg')){//Toxic Codes
+        message.reply (' ')//Toxic Codes
+           if(!message.channel.guild) return message.reply('** This command only for servers**');//Toxic Codes
+     message.member.addRole(message.guild.roles.find('name', 'Muted')); //Toxic Codes
+    const embed500 = new Discord.RichEmbed()//Toxic Codes
+      .setTitle("❌ | تمت معاقبتك")//Toxic Codes
+            .addField(`** لقد قمت بمخالفة قوانين السيرفر من خلال نشر سيرفرات اخرى  **` , `**ان كأن هاذه الميوت عن طريق الخطأ تواصل مع احد اعضاء الادارة**`)
+      .addField(`Magic`,`Server`)
+            .setColor("c91616")
+            .setThumbnail(`${message.author.avatarURL}`)//Toxic Codes
+            .setAuthor(message.author.username, message.author.avatarURL) //Toxic Codes
+        .setFooter(`${message.guild.name} Server`)//Toxic Codes
+     message.channel.send(embed500) //Toxic Codes
+    
+        
+    }//Toxic Codes
+    }//Toxic Codes
+}) //Toxic Codes
 
 
 /////////////////////////////بردكسات////////////////////////////
@@ -248,26 +258,27 @@ Yousef.on ("guildMemberRemove", member => {
 /////////////////////////كود معلومات السيرفر///////////////////////
 
 
-client.on('message', function(msg)
-
-          (msg.content.startsWith (prefix  + 'server')) {
-      let embed = new Discord.RichEmbed()
-      .setColor('RANDOM')
-      .setThumbnail(msg.guild.iconURL)
-      .setTitle(`Showing Details Of  **${msg.guild.name}*`)
-      .addField('🌐** نوع السيرفر**',`[** __${msg.guild.region}__ **]`,true)
-      .addField('🏅** __الرتب__**',`[** __${msg.guild.roles.size}__ **]`,true)
-      .addField('🔴**__ عدد الاعضاء__**',`[** __${msg.guild.memberCount}__ **]`,true)
-      .addField('🔵**__ عدد الاعضاء الاونلاين__**',`[** __${msg.guild.members.filter(m=>m.presence.status == 'online').size}__ **]`,true)
-      .addField('📝**__ الرومات الكتابية__**',`[** __${msg.guild.channels.filter(m => m.type === 'text').size}__** ]`,true)
-      .addField('🎤**__ رومات الصوت__**',`[** __${msg.guild.channels.filter(m => m.type === 'voice').size}__ **]`,true)
-      .addField('👑**__ الأونـر__**',`**${msg.guild.owner}**`,true)
-      .addField('🆔**__ ايدي السيرفر__**',`**${msg.guild.id}**`,true)
-      .addField('📅**__ تم عمل السيرفر في__**',msg.guild.createdAt.toLocaleString())
-      msg.channel.send({embed:embed});
-    }
-  });
-
+client.on('message', function(message) {//Toxic Codes
+    if (!message.member.hasPermissions(['ADMINISTRATOR'])){//Toxic Codes
+            let command = message.content.split(" ")[0];
+        if(message.content.includes('discord.gg')){//Toxic Codes
+        message.reply (' ')//Toxic Codes
+           if(!message.channel.guild) return message.reply('** This command only for servers**');//Toxic Codes
+     message.member.addRole(message.guild.roles.find('name', 'Muted')); //Toxic Codes
+    const embed500 = new Discord.RichEmbed()//Toxic Codes
+      .setTitle("❌ | تمت معاقبتك")//Toxic Codes
+            .addField(`** لقد قمت بمخالفة قوانين السيرفر من خلال نشر سيرفرات اخرى  **` , `**ان كأن هاذه الميوت عن طريق الخطأ تواصل مع احد اعضاء الادارة**`)
+      .addField(`Magic`,`Server`)
+            .setColor("c91616")
+            .setThumbnail(`${message.author.avatarURL}`)//Toxic Codes
+            .setAuthor(message.author.username, message.author.avatarURL) //Toxic Codes
+        .setFooter(`${message.guild.name} Server`)//Toxic Codes
+     message.channel.send(embed500) //Toxic Codes
+    
+        
+    }//Toxic Codes
+    }//Toxic Codes
+}) //Toxic Codes
 
 ////////////////////////////كود الالوان//////////////////////////////////
  
