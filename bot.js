@@ -3,43 +3,39 @@ const Baron = new Discord.Client();
 const prefix = '$';
 
 
-lient.on('guildMemberAdd', (member) => {
-member.addRole(member.guild.roles.find('name', ' new '));
+client.on('message', async msg => { //Toxic Codes
+    if (msg.content.toLowerCase() === "prefix" + "disco") {//Toxic Codes
+   if (msg.channel.type === "dm") return; 
+  const renk = [//Toxic Codes
+  'DEFAULT',
+  'BLACK',
+  'GREEN',
+  'BLUE',
+  'PURPLE',
+  'GOLD',
+  'ORANGE',
+  'RED',
+  'GREY',
+  'DARKER_GREY',
+  'NAVY',
+  'DARK_AQUA',
+  'DARK_GREEN',
+  'DARK_BLUE',
+  'DARK_PURPLE',
+  'DARK_GOLD',
+  'DARK_ORANGE',
+  'DARK_RED',
+  'DARK_GREY',
+  'LIGHT_GREY',
+  'DARK_NAVY',
+  'BEİGE'
+];
+  setInterval(function() {//Toxic Codes
+        var random = Math.floor(Math.random()*(renk.length-0+1)+0);//Toxic Codes
+      msg.guild.roles.find('name', "Disco").setColor(renk[random])//Toxic Codes
+      }, 4000);//سرعه تغير الاوان
+  }//Toxic Codes
 });
- 
- 
-client.on('message', message => {                      
-    if(!message.channel.guild) return;
-       if(message.content.startsWith(prefix + 'active')) {
-        let modlog = client.channels.find('name', 'general');
-       if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
-       message.channel.sendMessage(`اضغط على الصح عشان تتفعل`).then(msg => {
-       
-       
-        msg.react('✅')
-       .then(() => msg.react('✅'))
-     
-     
- 
-       let activeFilter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
-     
-       let active = msg.createReactionCollector(activeFilter, { time: 15000 });
-     
-                                                       
-                               active.on("collect", r => {
-                                   message.member.addRole(message.guild.roles.find("name", "active"));
-                                   message.member.removeRole(message.guild.roles.find("name", "not active"));
-                                   msg.delete();
-                                   message.channel.send(`**تم تفعيلك استمتع.**`).then(m => m.delete(1000));
-     
-                                   })
-                                   })
-                                   }
-                                   });
-
-
-
-
 
 
 
